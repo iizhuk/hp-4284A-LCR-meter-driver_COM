@@ -134,12 +134,12 @@ class RunCVFrame(Frame):
         setImpedance(self.inst_handle,
                     self.imp_rng.get(),
                     self.aut_rng.get(),
-                    self.load_typeV.get())#Cp - G Mode
+                    self.load_typeV.get())
         print ("setIntegrationTime....")
         setIntegrationTime(self.inst_handle,
                             self.integ_timeV.get(),
                             self.int_pts.get())#Medium Integration Time - 8 Point Average
         print ("Run CV....")
         vBias = VBias = np.linspace(self.dc_start.get(),self.dc_end.get(),self.dc_pts.get()) #V
-        runCVLoop(self.inst_handle,self.freq.get(),VBias,self.filename,self.parent)
+        runCVLoop(self.inst_handle,self.freq.get(),VBias,self.filename,self.parent,self.load_typeV.get())
         print('Done')

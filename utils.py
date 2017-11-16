@@ -383,7 +383,7 @@ def fetchData(inst_handle):
         print('fetchData ERROR')
         return -1
 
-def runCVLoop(inst_handle,freq,VBias,filename,parent):
+def runCVLoop(inst_handle,freq,VBias,filename,parent,loadtype):
     ''' 
     fetchData(inst_handle):
     
@@ -402,7 +402,69 @@ def runCVLoop(inst_handle,freq,VBias,filename,parent):
     save_path = 'Data'
     fullName = os.path.join(save_path, filename+".csv")   
     f = open(fullName, 'w+')
-    f.write('Voltage (V), Capacitance_P (F), Conductance_P (S)\r')
+    
+    if (loadtype == 'CPD'):
+        xaxis1='Cp(F)' 
+        xaxis2='D'
+    elif (loadtype == 'CPQ'):
+        xaxis1='Cp(F)' 
+        xaxis2='Q'
+    elif (loadtype == 'CPG'):
+        xaxis1='Cp(F)' 
+        xaxis2='G(s)'
+    elif (loadtype == 'CPRP'):
+        xaxis1='Cp(F)' 
+        xaxis2='Rp(Ohms)'
+    elif (loadtype == 'CSD'):
+        xaxis1='Cs(F)' 
+        xaxis2='D'
+    elif (loadtype == 'CSQ'):
+        xaxis1='Cs(F)' 
+        xaxis2='Q'
+    elif (loadtype == 'CSRS'):
+        xaxis1='Cs(F)' 
+        xaxis2='Rs(Ohms)'
+    elif (loadtype == 'LPD'):
+        xaxis1='Lp(H)' 
+        xaxis2='D'
+    elif (loadtype == 'LPQ'):
+        xaxis1='Lp(H)' 
+        xaxis2='Q'
+    elif (loadtype == 'LPG'):
+        xaxis1='Lp(H)' 
+        xaxis2='G(s)'
+    elif (loadtype == 'LPRP'):
+        xaxis1='Lp(H)' 
+        xaxis2='Rp(Ohms)'
+    elif (loadtype == 'LSD'):
+        xaxis1='Ls(F)' 
+        xaxis2='D'
+    elif (loadtype == 'LSQ'):
+        xaxis1='Ls(F)' 
+        xaxis2='Q'
+    elif (loadtype == 'LSRS'):
+        xaxis1='Ls(F)' 
+        xaxis2='Rs(Ohms)'
+    elif (loadtype == 'RX'):
+        xaxis1='R(Ohms)' 
+        xaxis2='X(Ohms)'
+    elif (loadtype == 'ZTD'):
+        xaxis1='Z(Ohms)' 
+        xaxis2='Theta(Deg)'
+    elif (loadtype == 'ZTR'):
+        xaxis1='Z(Ohms)' 
+        xaxis2='Theta(Rad)'
+    elif (loadtype == 'GB'):
+        xaxis1='G(s)' 
+        xaxis2='B(s)'
+    elif (loadtype == 'YTD'):
+        xaxis1='Y(s)' 
+        xaxis2='Theta(Deg)'
+    elif (loadtype == 'YTR'):
+        xaxis1='Y(s)' 
+        xaxis2='Theta(Rad)'
+        
+    f.write('Voltage (V),'+xaxis1+', '+xaxis2+'\r')
     f.close()
     
     try:
@@ -425,14 +487,9 @@ def runCVLoop(inst_handle,freq,VBias,filename,parent):
             CMeas.append(C)
             GMeas.append(G)
             
-            #Check if Leakage Current is gettting too High
-            Q = (omega*C) / G
-            
-            print('Q:'+str(Q))
-            if np.abs(Q) < 5.0:
-                print('Leakage Current is gettting too High')
-                break	
-        parent.updatePlot(VBias,CMeas,GMeas)      
+            print('Voltage:'+str(v)+' V')
+            	
+        parent.updatePlot(VBias,CMeas,GMeas,xaxis1,xaxis2)      
     except:
         logging.getLogger().error("runCVLoop ERROR", 
                                    exc_info=True)

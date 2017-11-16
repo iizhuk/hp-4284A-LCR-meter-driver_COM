@@ -17,7 +17,7 @@ mainFrame = ttk.Frame(root, padding=(10, 10, 10, 10))
 mainFrame.grid(column=0, row=0, sticky=(N, W, E, S))
 root.grid_columnconfigure(0, weight=1)
 root.grid_rowconfigure(0, weight=1)
-mainFrame.master.title('HP 4284A - CV measurement')
+mainFrame.master.title('HP 4284A -Instrument Driver')
 
 
 class Application(ttk.Frame):
@@ -30,7 +30,7 @@ class Application(ttk.Frame):
         self.mainWidgets()
         for r in range(14):
             self.master.rowconfigure(r, weight=1)
-        for c in range(8):
+        for c in range(10):
             self.master.columnconfigure(c, weight=1)
         
 		
@@ -46,11 +46,11 @@ class Application(ttk.Frame):
         self.runCVFrame.grid(row=5, column=0, rowspan=9, columnspan=2,
                        sticky=W + E + N + S)
         self.fileSaveFrame = FileSaveFrame(master=mainFrame,filename=self.file_name, app=self)
-        self.fileSaveFrame.grid(row=0, column=2, rowspan=1, columnspan=6,
+        self.fileSaveFrame.grid(row=0, column=2, rowspan=1, columnspan=8,
                        sticky=W+N)
                      
         self.pltDataFrame = PltDataFrame(master=mainFrame)
-        self.pltDataFrame.grid(row=1, column=2, rowspan=14, columnspan=6,
+        self.pltDataFrame.grid(row=1, column=2, rowspan=14, columnspan=8,
                       sticky= N)
                       
     def updateInstHandle(self,handle):
@@ -62,8 +62,8 @@ class Application(ttk.Frame):
         self.file_name=filename
         self.runCVFrame.updateFileName(filename)
     
-    def updatePlot(self,V_data,Cp_data,Gp_data):
-        self.pltDataFrame.updatePlot(V_data,Cp_data,Gp_data)
+    def updatePlot(self,V_data,Cp_data,Gp_data,xaxis1,xaxis2):
+        self.pltDataFrame.updatePlot(V_data,Cp_data,Gp_data,xaxis1,xaxis2)
         
     
 app = Application(master=mainFrame)
