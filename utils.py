@@ -6,7 +6,7 @@ __license__ = "NONE"
 __version__ = "1.0.1"
 
 
-import visa
+import pyvisa as visa
 import numpy as np
 import time
 import logging
@@ -494,7 +494,4 @@ def runCVLoop(inst_handle,freq,VBias,filename,parent,loadtype):
         logging.getLogger().error("runCVLoop ERROR", 
                                    exc_info=True)
         print('runCVLoop ERROR')
-        return -1       
-
-
-   
+        return -1
