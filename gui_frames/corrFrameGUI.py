@@ -1,5 +1,6 @@
 from tkinter import *
 from utils import setCorrectionParameters
+from tkinter import ttk
 		
 class CorrFrame(Frame):
 
@@ -104,5 +105,3 @@ class CorrFrame(Frame):
         self.load_typeV.get(),
         self.channel.get()) 
         print ("Done")
-		
-       
