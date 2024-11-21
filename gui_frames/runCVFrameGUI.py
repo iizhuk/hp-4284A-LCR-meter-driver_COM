@@ -1,6 +1,7 @@
 from tkinter import *
 from utils import setSignalLevelAndFrequency,setImpedance,setIntegrationTime,runCVLoop
 import numpy as np
+from tkinter import ttk
 		
 class RunCVFrame(Frame):
 
